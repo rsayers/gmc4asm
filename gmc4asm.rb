@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 def usage
   puts "Usage:\n\n#{__FILE__} [OPTIONS] src.asm\n"
   puts "Options:\n"
@@ -122,7 +124,7 @@ lines.each do |l|
 
   
   # setup our hash for this line, as store the assembly in 'orig'
-  line={'orig'=>'','hex'=>[]}
+  line={'orig'=>'','hex'=>[],'jump'=>nil}
   line["orig"]=l
 
   # split the line by whitespace, the first element will be the opcode
@@ -155,14 +157,7 @@ lines.each do |l|
   
   
   if opcode=="JUMP"
-    if labels[ops[0]].nil? then
-      # If we try to jump to a previously undefined label, throw an error
-      puts "Unknown Label: #{ops[0]}"
-      exit
-    else
-      # Otherwise save it
-      line["hex"]=line["hex"].concat(labels[ops[0]].split(''))
-    end
+    line["jump"]=ops[0]
   elsif opcode=="CAL"
     if functions[ops[0]].nil? then
       # if call is sent something invalid, error out
@@ -192,6 +187,14 @@ end
 #reset the address to 0
 addr = 0
 output.each do |ins|
+  # if we have a jump defined, resolve that now
+  if !ins["jump"].nil? then
+    if labels[ins["jump"]].nil? then
+      puts "Unknown label: #{ins["jump"]}"
+      exit;
+    end
+    ins["hex"] = ins["hex"].concat(labels[ins["jump"]].split(''))
+  end
   # if hex is nil, then we have a label, display that here
   if ins["hex"].nil? then
     print "\t" 
