@@ -20,7 +20,7 @@ Asm output mode will output addresses, assembled hex, and the equivalent asm cod
 
 LED output mode shows one hex value per line, and provides an indicator as to what LEDs will be lit on the device to make it easier to input programs.
 
-This has currently been tested only on limited programs, but seems to work pretty well.  One huge exception is that JUMPs can only point to labels defined beforehand, and cannot jump forward.  This will be corrected in the next release
+This has currently been tested only on limited programs, but seems to work pretty well.  
 
 
 License
