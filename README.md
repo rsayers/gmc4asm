@@ -7,8 +7,10 @@ An assembler for the Gakken GMC4 in Ruby
 Requirements: Ruby 2.0.  Possibly works in 1.9, but untested.
 
 Usage:
-	gmc4asm.rb [OPTIONS] src.asm
-	Options:
+
+    gmc4asm.rb [OPTIONS] src.asm
+    
+        Options:
 	        -h Help: Display this message
         	-l LED Output: Display hex values along with the GMC4 Led indicators
 	        -a ASM Output (Default): Display Text addresses, hex values, and original assembly code
